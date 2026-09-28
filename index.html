@@ -1,0 +1,3514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYBERSAFE</title>
+
+<style>
+:root {
+    --principal: #00ff88;
+    --principal-suave: #173d2c;
+    --borde: #286b4e;
+    --fondo-card: #0a120e;
+    --fondo-card-2: #101a14;
+    --texto: #ffffff;
+    --texto-secundario: #a8b7af;
+    --fondo: #030605;
+}
+
+body.skin-matrix {
+    --principal: #00ff88;
+    --principal-suave: #173d2c;
+    --borde: #286b4e;
+    --fondo-card: #0a120e;
+    --fondo-card-2: #101a14;
+}
+
+body.skin-neon {
+    --principal: #00eaff;
+    --principal-suave: #12383e;
+    --borde: #287b88;
+    --fondo-card: #071217;
+    --fondo-card-2: #0d2027;
+}
+
+body.skin-cyber {
+    --principal: #bd6cff;
+    --principal-suave: #352044;
+    --borde: #70459a;
+    --fondo-card: #110a18;
+    --fondo-card-2: #1b1024;
+}
+
+body.skin-guardian {
+    --principal: #ffd34d;
+    --principal-suave: #403715;
+    --borde: #806d27;
+    --fondo-card: #151207;
+    --fondo-card-2: #211c0a;
+}
+
+body.skin-legend {
+    --principal: #ff9d2e;
+    --principal-suave: #4b2d0e;
+    --borde: #8a561e;
+    --fondo-card: #180d04;
+    --fondo-card-2: #251406;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background:
+        radial-gradient(circle at top, #0a1710 0%, var(--fondo) 55%);
+    color: var(--texto);
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    transition: background 0.4s ease, color 0.4s ease;
+}
+
+button {
+    font-family: inherit;
+}
+
+.oculto {
+    display: none !important;
+}
+
+/* XP Y MONEDAS */
+
+#barraSuperior {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    z-index: 100;
+    display: flex;
+    gap: 10px;
+}
+
+.recurso {
+    background: rgba(5, 12, 8, 0.92);
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    padding: 9px 14px;
+    box-shadow: 0 0 15px color-mix(in srgb, var(--principal) 25%, transparent);
+}
+
+.recurso strong {
+    color: var(--principal);
+}
+
+/* INICIO */
+
+#inicio {
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#inicio::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--principal);
+    box-shadow: 0 0 15px var(--principal);
+    animation: escaneo 4s linear infinite;
+    z-index: 10;
+}
+
+@keyframes escaneo {
+    0% {
+        top: 0;
+    }
+
+    50% {
+        top: 100%;
+    }
+
+    100% {
+        top: 0;
+    }
+}
+
+.logo {
+    font-size: 90px;
+    filter: drop-shadow(0 0 20px var(--principal));
+    animation: flotar 2.5s infinite ease-in-out;
+}
+
+@keyframes flotar {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.titulo-principal {
+    font-size: 65px;
+    margin: 10px 0;
+    color: var(--principal);
+    text-shadow: 0 0 25px var(--principal);
+    letter-spacing: 6px;
+}
+
+.subtitulo {
+    color: var(--texto-secundario);
+    letter-spacing: 5px;
+    font-size: 17px;
+}
+
+.intro {
+    max-width: 650px;
+    color: #c7d0cb;
+    line-height: 1.7;
+    margin: 20px;
+}
+
+.sistema {
+    color: var(--principal);
+    min-height: 25px;
+    margin: 15px;
+    font-family: monospace;
+}
+
+.boton-principal {
+    background: transparent;
+    color: var(--principal);
+    border: 2px solid var(--principal);
+    border-radius: 10px;
+    padding: 15px 35px;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 0 15px color-mix(in srgb, var(--principal) 35%, transparent);
+    transition: 0.25s;
+}
+
+.boton-principal:hover {
+    background: var(--principal);
+    color: #000;
+    transform: scale(1.05);
+    box-shadow: 0 0 30px var(--principal);
+}
+
+/* MENÚ */
+
+#contenido {
+    display: none;
+    min-height: 100vh;
+    padding: 90px 25px 50px;
+}
+
+.menu-titulo {
+    text-align: center;
+    font-size: 38px;
+    color: var(--principal);
+    text-shadow: 0 0 15px var(--principal);
+}
+
+.menu-subtitulo {
+    text-align: center;
+    color: var(--texto-secundario);
+}
+
+.menu {
+    max-width: 1100px;
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 20px;
+}
+
+.menu-card {
+    background: linear-gradient(145deg, var(--fondo-card), var(--fondo-card-2));
+    border: 1px solid var(--borde);
+    border-radius: 15px;
+    padding: 28px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    min-height: 160px;
+}
+
+.menu-card:hover {
+    transform: translateY(-7px);
+    border-color: var(--principal);
+    box-shadow: 0 0 25px color-mix(in srgb, var(--principal) 25%, transparent);
+}
+
+.menu-icono {
+    font-size: 45px;
+}
+
+.menu-card h2 {
+    color: var(--principal);
+    margin: 12px 0 5px;
+}
+
+.menu-card p {
+    color: var(--texto-secundario);
+}
+
+/* SECCIONES */
+
+.seccion {
+    display: none;
+    max-width: 950px;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+
+.seccion.activa {
+    display: block;
+}
+
+.seccion h1 {
+    text-align: center;
+    color: var(--principal);
+    text-shadow: 0 0 15px var(--principal);
+    margin-bottom: 30px;
+}
+
+.info-box {
+    background: linear-gradient(145deg, var(--fondo-card), var(--fondo-card-2));
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 0 20px color-mix(in srgb, var(--principal) 8%, transparent);
+}
+
+.info-box h2 {
+    color: var(--principal);
+    margin-top: 0;
+}
+
+.info-box h3 {
+    color: var(--principal);
+}
+
+.info-box p,
+.info-box li {
+    color: #d1d9d4;
+    line-height: 1.7;
+}
+
+.info-box li {
+    margin-bottom: 8px;
+}
+
+/* PREGUNTAS */
+
+.pregunta {
+    background: linear-gradient(145deg, var(--fondo-card-2), var(--fondo-card));
+    border: 2px solid var(--borde);
+    border-radius: 15px;
+    padding: 25px;
+    margin-top: 30px;
+}
+
+.pregunta-titulo {
+    color: var(--principal);
+    font-size: 21px;
+    margin-bottom: 20px;
+}
+
+.opciones {
+    display: grid;
+    gap: 12px;
+}
+
+.opcion {
+    background: #101814;
+    color: white;
+    border: 1px solid var(--borde);
+    padding: 14px 18px;
+    border-radius: 9px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.opcion:hover {
+    border-color: var(--principal);
+    background: var(--principal-suave);
+    transform: translateX(4px);
+}
+
+.resultado {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 9px;
+    display: none;
+}
+
+.resultado.correcto {
+    display: block;
+    border: 1px solid var(--principal);
+    background: var(--principal-suave);
+    color: white;
+}
+
+.resultado.incorrecto {
+    display: block;
+    border: 1px solid #ff5555;
+    background: #301010;
+    color: white;
+}
+
+/* PROBADOR DE CONTRASEÑAS */
+
+.password-input {
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--borde);
+    background: #050a07;
+    color: white;
+    font-size: 17px;
+    outline: none;
+}
+
+.password-input:focus {
+    border-color: var(--principal);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--principal) 30%, transparent);
+}
+
+.barra {
+    width: 100%;
+    height: 15px;
+    background: #18201b;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 15px 0;
+}
+
+.barra-interior {
+    height: 100%;
+    width: 0%;
+    background: var(--principal);
+    transition: 0.3s;
+}
+
+.nivel-password {
+    color: var(--principal);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* TEST */
+
+.test-caja {
+    background: linear-gradient(145deg, var(--fondo-card), var(--fondo-card-2));
+    border: 1px solid var(--borde);
+    border-radius: 15px;
+    padding: 25px;
+}
+
+.test-progreso-texto {
+    text-align: center;
+    color: var(--texto-secundario);
+}
+
+.test-pregunta {
+    font-size: 23px;
+    color: var(--principal);
+    margin: 25px 0;
+}
+
+.barra-test {
+    width: 100%;
+    height: 10px;
+    background: #151c18;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.barra-test div {
+    height: 100%;
+    background: var(--principal);
+    width: 0%;
+    transition: 0.3s;
+}
+
+.respuesta-test {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 15px;
+    text-align: left;
+    background: #101814;
+    color: white;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.respuesta-test:hover {
+    border-color: var(--principal);
+    background: var(--principal-suave);
+}
+
+.respuesta-correcta {
+    border-color: var(--principal) !important;
+    background: var(--principal-suave) !important;
+}
+
+.respuesta-incorrecta {
+    border-color: #ff5555 !important;
+    background: #301010 !important;
+}
+
+/* TIENDA */
+
+.tienda-saldo {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 25px;
+}
+
+.tienda-saldo span {
+    color: var(--principal);
+    font-weight: bold;
+}
+
+.tienda {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.skin-card {
+    background: linear-gradient(145deg, var(--fondo-card), var(--fondo-card-2));
+    border: 1px solid var(--borde);
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.skin-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--principal);
+}
+
+.skin-icono {
+    font-size: 55px;
+    margin-bottom: 10px;
+}
+
+.skin-card h2 {
+    color: var(--principal);
+}
+
+.skin-precio {
+    color: #ffd34d;
+    font-weight: bold;
+    margin: 12px;
+}
+
+.boton-skin {
+    width: 100%;
+    padding: 11px;
+    background: transparent;
+    color: var(--principal);
+    border: 1px solid var(--principal);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.boton-skin:hover:not(:disabled) {
+    background: var(--principal);
+    color: #000;
+}
+
+.boton-skin:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* PREVIEW SKIN */
+
+.preview-skin {
+    border: 2px solid var(--principal);
+    background:
+        radial-gradient(circle at center, var(--principal-suave), var(--fondo-card));
+    border-radius: 18px;
+    padding: 25px;
+    text-align: center;
+    margin-bottom: 30px;
+    box-shadow: 0 0 30px color-mix(in srgb, var(--principal) 20%, transparent);
+}
+
+.preview-icono {
+    font-size: 70px;
+}
+
+.preview-skin h2 {
+    color: var(--principal);
+}
+
+.preview-skin p {
+    color: var(--texto-secundario);
+}
+
+/* PERFIL */
+
+.perfil {
+    text-align: center;
+}
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    border: 2px solid var(--principal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    background: var(--fondo-card);
+    box-shadow: 0 0 25px color-mix(in srgb, var(--principal) 30%, transparent);
+}
+
+.titulo-perfil {
+    color: var(--principal);
+    font-size: 25px;
+}
+
+.estadisticas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.stat {
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    padding: 20px;
+    background: var(--fondo-card);
+}
+
+.stat strong {
+    display: block;
+    font-size: 25px;
+    color: var(--principal);
+    margin-bottom: 5px;
+}
+
+/* BOTONES */
+
+.boton-volver {
+    display: block;
+    margin: 30px auto 0;
+    padding: 12px 25px;
+    background: transparent;
+    color: var(--principal);
+    border: 1px solid var(--principal);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.boton-volver:hover {
+    background: var(--principal);
+    color: #000;
+}
+
+.boton-reset {
+    margin-top: 30px;
+    padding: 12px 20px;
+    background: #351010;
+    color: white;
+    border: 1px solid #ff5555;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* PHISHING */
+
+#alertaPhishing,
+#errorPantalla {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.94);
+}
+
+.phishing-caja,
+.error-caja {
+    width: min(600px, 90%);
+    background: #080d0a;
+    border: 2px solid #ff5555;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(255,0,0,0.25);
+}
+
+.simulacion {
+    color: #ffcc55;
+    border: 1px solid #806d27;
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+.phishing-caja h2,
+.error-caja h2 {
+    color: #ff5555;
+}
+
+#mensajePhishing {
+    white-space: pre-line;
+    color: #d7ded9;
+    line-height: 1.7;
+    margin: 20px 0;
+}
+
+.botones-phishing {
+    display: grid;
+    gap: 10px;
+}
+
+.opcion-phishing {
+    background: #102018;
+    color: white;
+    border: 1px solid #286b4e;
+    padding: 14px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.opcion-phishing:hover {
+    border-color: var(--principal);
+    background: var(--principal-suave);
+    transform: scale(1.03);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 700px) {
+
+    #barraSuperior {
+        position: static;
+        justify-content: center;
+        padding: 10px;
+        flex-wrap: wrap;
+    }
+
+    .titulo-principal {
+        font-size: 42px;
+    }
+
+    .logo {
+        font-size: 65px;
+    }
+
+    #contenido {
+        padding-top: 30px;
+    }
+}
+</style>
+</head>
+
+<body class="skin-matrix">
+
+<div id="barraSuperior">
+
+    <div class="recurso">
+        ⭐ XP: <strong id="xpTexto">0</strong>
+    </div>
+
+    <div class="recurso">
+        🪙 <strong id="monedasTexto">0</strong>
+    </div>
+
+</div>
+
+<section id="inicio">
+
+    <div class="logo">🛡️</div>
+
+    <h1 class="titulo-principal">
+        CYBERSAFE
+    </h1>
+
+    <div class="subtitulo">
+        TU SEGURIDAD EN INTERNET
+    </div>
+
+    <p class="intro">
+        Aprende a proteger tus cuentas, reconocer amenazas,
+        cuidar tu privacidad y utilizar las redes sociales
+        de forma más segura.
+    </p>
+
+    <div class="sistema" id="mensajeSistema">
+        Inicializando CYBERSAFE...
+    </div>
+
+    <button class="boton-principal" onclick="empezar()">
+        🚀 EMPEZAR
+    </button>
+
+</section>
+
+<main id="contenido">
+
+    <h1 class="menu-titulo">
+        🛡️ CYBERSAFE
+    </h1>
+
+    <p class="menu-subtitulo">
+        Aprende • Responde • Consigue XP • Desbloquea skins
+    </p>
+
+    <div class="menu" id="menuPrincipal">
+
+        <div class="menu-card" onclick="abrirSeccion('guia')">
+            <div class="menu-icono">📖</div>
+            <h2>GUÍA</h2>
+            <p>Aprende los conceptos básicos.</p>
+        </div>
+
+        <div class="menu-card" onclick="abrirSeccion('contrasenas')">
+            <div class="menu-icono">🔐</div>
+            <h2>CONTRASEÑAS</h2>
+            <p>Aprende a crear contraseñas seguras.</p>
+        </div>
+
+        <div class="menu-card" onclick="abrirSeccion('probador')">
+            <div class="menu-icono">🔎</div>
+            <h2>PROBADOR</h2>
+            <p>Prueba la seguridad de una contraseña.</p>
+        </div>
+
+        <div class="menu-card" onclick="abrirSeccion('phishing')">
+            <div class="menu-icono">🎣</div>
+            <h2>PHISHING</h2>
+            <p>Aprende a reconocer mensajes sospechosos.</p>
+        </div>
+
+        <div class="menu-card" onclick="abrirSeccion('privacidad')">
+            <div class="menu-icono">👤</div>
+            <h2>PRIVACIDAD</h2>
+            <p>Protege tus datos personales.</p>
+        </div>
+
+        <div class="menu-card" onclick="abrirSeccion('redes')">
+            <div class="menu-icono">📱</div>
+            <h2>REDES SOCIALES</h2>
+            <p>Utiliza las redes de forma segura.</p>
+        </div>
+
+        <div class="menu-card" onclick="abrirTest()">
+            <div class="menu-icono">🧠</div>
+            <h2>TEST FINAL</h2>
+            <p>Comprueba todo lo que has aprendido.</p>
+        </div>
+
+        <div class="menu-card" onclick="abrirSeccion('tienda')">
+            <div class="menu-icono">🛍️</div>
+            <h2>TIENDA</h2>
+            <p>Compra y equipa skins.</p>
+        </div>
+
+        <div class="menu-card" onclick="abrirSeccion('perfil')">
+            <div class="menu-icono">👤</div>
+            <h2>MI PERFIL</h2>
+            <p>Consulta tu progreso.</p>
+        </div>
+
+    </div>
+
+    <section id="guia" class="seccion">
+
+        <h1>📖 GUÍA DE SEGURIDAD</h1>
+
+        <div class="info-box">
+
+            <h2>🛡️ ¿Por qué es importante la seguridad?</h2>
+
+            <p>
+                Cuando utilizamos Internet compartimos información,
+                creamos cuentas y nos comunicamos con otras personas.
+                Por eso debemos saber cómo proteger nuestros datos.
+            </p>
+
+            <h3>🔐 Contraseñas</h3>
+
+            <p>
+                Una contraseña segura debe ser larga y difícil de
+                adivinar. Es recomendable utilizar combinaciones
+                diferentes y no reutilizar la misma contraseña
+                en todas las cuentas.
+            </p>
+
+            <h3>🎣 Phishing</h3>
+
+            <p>
+                El phishing intenta engañarte mediante mensajes,
+                páginas o avisos que parecen legítimos.
+            </p>
+
+            <h3>👤 Privacidad</h3>
+
+            <p>
+                Los datos personales deben protegerse y compartirse
+                con cuidado.
+            </p>
+
+            <h3>📱 Redes sociales</h3>
+
+            <p>
+                Antes de publicar algo piensa quién puede verlo.
+            </p>
+
+        </div>
+
+        <div class="pregunta">
+
+            <div class="pregunta-titulo">
+                🧠 PREGUNTA: ¿Cuál es una buena regla de seguridad?
+            </div>
+
+            <div class="opciones">
+
+                <button class="opcion" onclick="respuestaInfo(this, true)">
+                    Pensar antes de compartir información personal.
+                </button>
+
+                <button class="opcion" onclick="respuestaInfo(this, false)">
+                    Utilizar la misma contraseña para todo.
+                </button>
+
+                <button class="opcion" onclick="respuestaInfo(this, false)">
+                    Aceptar cualquier solicitud de desconocidos.
+                </button>
+
+                <button class="opcion" onclick="respuestaInfo(this, false)">
+                    Hacer clic en todos los enlaces que recibamos.
+                </button>
+
+            </div>
+
+            <div class="resultado"></div>
+
+        </div>
+
+        <button class="boton-volver" onclick="volverMenu()">
+            ← VOLVER AL MENÚ
+        </button>
+
+    </section>
+
+    <section id="contrasenas" class="seccion">
+
+        <h1>🔐 CONTRASEÑAS</h1>
+
+        <div class="info-box">
+
+            <h2>🔒 ¿Cómo debe ser una contraseña segura?</h2>
+
+            <p>
+                Una buena contraseña debe ser suficientemente larga
+                y difícil de adivinar. También es importante utilizar
+                contraseñas diferentes para cuentas importantes.
+            </p>
+
+            <ul>
+                <li>✅ Utiliza contraseñas largas.</li>
+                <li>✅ Combina mayúsculas y minúsculas.</li>
+                <li>✅ Utiliza números y símbolos.</li>
+                <li>✅ Utiliza contraseñas diferentes en cuentas importantes.</li>
+                <li>❌ No utilices información personal fácil de adivinar.</li>
+                <li>❌ No utilices contraseñas como 123456 o contraseña.</li>
+            </ul>
+
+            <h3>🧠 ¿Por qué es importante?</h3>
+
+            <p>
+                Las contraseñas protegen nuestras cuentas y nuestra
+                información personal. Si una contraseña es fácil de
+                adivinar, una persona podría intentar acceder a la cuenta.
+            </p>
+
+        </div>
+
+        <div class="pregunta">
+
+            <div class="pregunta-titulo">
+                🧠 PREGUNTA: ¿Cuál de estas opciones sería una contraseña
+                más segura?
+            </div>
+
+            <div class="opciones">
+
+                <button class="opcion" onclick="respuestaInfo(this, false)">
+                    12345678
+                </button>
+
+                <button class="opcion" onclick="respuestaInfo(this, false)">
+                    Unai2010
+                </button>
+
+                <button class="opcion" onclick="respuestaInfo(this, true)">
+                    Una contraseña larga, única y difícil de adivinar
+                </button>
+
+                <button class="opcion" onclick="respuestaInfo(this, false)">
+                    contraseña
+                </button>
+
+            </div>
+
+            <div class="resultado"></div>
+
+        </div>
+
+        <button class="boton-volver" onclick="volverMenu()">
+            ← VOLVER AL MENÚ
+        </button>
+
+    </section>
+
+    <section id="probador" class="seccion">
+
+        <h1>🔎 PROBADOR</h1>
+
+        <div class="info-box">
+
+            <h2>🔐 PROBADOR DE CONTRASEÑAS</h2>
+
+            <p>
+                Este probador analiza las características de una
+                contraseña de prueba y te indica aproximadamente
+                qué tan segura es.
+            </p>
+
+            <p>
+                Comprueba si tiene suficiente longitud, mayúsculas,
+                minúsculas, números y símbolos.
+            </p>
+
+            <p>
+                ⚠️ <strong>No introduzcas aquí una contraseña real</strong>
+                que utilices en tus cuentas.
+            </p>
+
+            <input
+                type="password"
+                id="passwordInput"
+                class="password-input"
+                placeholder="Escribe una contraseña de prueba..."
+                oninput="comprobarPassword()"
+            >
+
+            <div class="barra">
+                <div
+                    id="barraPassword"
+                    class="barra-interior"
+                ></div>
+            </div>
+
+            <div
+                id="nivelPassword"
+                class="nivel-password"
+            >
+                🔴 MUY DÉBIL
+            </div>
+
+            <p id="detallesPassword">
+                Escribe una contraseña de prueba para analizarla.
+            </p>
+
+        </div>
+
+        <div class="info-box">
+
+            <h2>🧠 ¿Cómo reaccionar ante una situación sospechosa?</h2>
+
+            <p>
+                No solo es importante tener una buena contraseña.
+                También debemos saber qué hacer cuando alguien nos
+                pide información personal por Internet.
+            </p>
+
+            <p>
+                Si una persona desconocida te pide datos privados,
+                lo más seguro es no compartirlos y comprobar quién es.
+            </p>
+
+        </div>
+
+        <div class="pregunta">
+
+            <div class="pregunta-titulo">
+                👤 Una persona desconocida por Internet te pide
+                tu dirección. ¿Qué haces?
+            </div>
+
+            <div class="opciones">
+
+                <button class="opcion" onclick="mision(this, true)">
+                    🛡️ No la comparto y compruebo quién es.
+                </button>
+
+                <button class="opcion" onclick="mision(this, false)">
+                    📍 Se la envío porque parece simpático.
+                </button>
+
+                <button class="opcion" onclick="mision(this, false)">
+                    📸 Le envío también una foto de mi casa.
+                </button>
+
+            </div>
+
+            <div class="resultado"></div>
+
+        </div>
+
+        <button class="boton-volver" onclick="volverMenu()">
+            ← VOLVER AL MENÚ
+        </button>
+
+    </section>
+
+    <section id="phishing" class="seccion">
+
+        <h1>🎣 PHISHING</h1>
+
+        <div class="info-box">
+
+            <h2>⚠️ ¿Qué es el phishing?</h2>
+
+            <p>
+                El phishing es una técnica de engaño en Internet
+                que intenta hacer que una persona confíe en un
+                mensaje o página que no debería.
+            </p>
+
+            <h3>🔎 Señales de alerta</h3>
+
+            <ul>
+                <li>⚠️ Mensajes que crean mucha urgencia.</li>
+                <li>⚠️ Premios o regalos inesperados.</li>
+                <li>⚠️ Peticiones extrañas de información.</li>
+                <li>⚠️ Enlaces sospechosos.</li>
+                <li>⚠️ Mensajes con errores o información extraña.</li>
+            </ul>
+
+            <p>
+                Una buena práctica es comprobar la información
+                mediante una vía oficial en lugar de confiar
+                directamente en el mensaje recibido.
+            </p>
+
+        </div>
+
+        <div class="pregunta">
+
+            <div class="pregunta-titulo">
+                🎣 PREGUNTA: Recibes un mensaje diciendo que has ganado
+                un premio y debes actuar inmediatamente. ¿Qué haces?
+            </div>
+
+            <div class="opciones">
+
+                <button class="opcion" onclick="respuestaInfo(this, false)">
+                    🎁 Hago clic inmediatamente.
+                </button>
+
+                <button class="opcion" onclick="respuestaInfo(this, true)">
+                    🔎 Compruebo la información por una vía oficial.
+                </button>
+
+                <button class="opcion" onclick="respuestaInfo(this, false)">
+                    📤 Lo reenvío a mis amigos.
+                </button>
+
+                <button class="opcion" onclick="respuestaInfo(this, false)">
+                    🔑 Introduzco mis datos para comprobarlo.
+                </button>
+
+            </div>
+
+            <div class="resultado"></div>
+
+        </div>
+
+        <button class="boton-volver" onclick="volverMenu()">
+            ← VOLVER AL MENÚ
+        </button>
+
+    </section>
+
+    <section id="privacidad" class="seccion">
+
+        <h1>👤 PRIVACIDAD</h1>
+
+        <div class="info-box">
+
+            <h2>🔐 Protege tus datos</h2>
+
+            <p>
+                La privacidad consiste en controlar qué información
+                personal compartimos y con quién.
+            </p>
+
+            <h3>🚫 Información que debemos proteger</h3>
+
+            <ul>
+                <li>Contraseñas.</li>
+                <li>Dirección de casa.</li>
+                <li>Número de teléfono.</li>
+                <li>Datos de acceso a cuentas.</li>
+                <li>Información privada de familiares o amigos.</li>
+            </ul>
+
+            <h3>⚙️ Revisa la configuración</h3>
+
+            <p>
+                Las aplicaciones y redes sociales tienen opciones
+                de privacidad. Conviene revisar quién puede ver
+                nuestras publicaciones y qué información compartimos.
+            </p>
+
+        </div>
+
+        <div class="pregunta">
+
+            <div class="pregunta-titulo">
+                👤 ¿Cuál de estos datos deberías evitar compartir
+                públicamente?
+            </div>
+
+            <div class="opciones">
+
+                <button class="opcion" onclick="respuestaInfo(this, false)">
+                    🎨 Mi color favorito.
+                </button>
+
+                <button class="opcion" onclick="respuestaInfo(this, true)">
+                    🏠 Mi dirección de casa.
+                </button>
+
+                <button class="opcion" onclick="respuestaInfo(this, false)">
+                    ⚽ Mi deporte favorito.
+                </button>
+
+                <button class="opcion" onclick="respuestaInfo(this, false)">
+                    🎮 Un videojuego que me gusta.
+                </button>
+
+            </div>
+
+            <div class="resultado"></div>
+
+        </div>
+
+        <button class="boton-volver" onclick="volverMenu()">
+            ← VOLVER AL MENÚ
+        </button>
+
+    </section>
+
+    <section id="redes" class="seccion">
+
+        <h1>📱 REDES SOCIALES</h1>
+
+        <div class="info-box">
+
+            <h2>🌐 Utiliza las redes de forma segura</h2>
+
+            <p>
+                Las redes sociales permiten comunicarnos y compartir
+                contenido, pero una publicación puede llegar a muchas
+                personas y permanecer en Internet.
+            </p>
+
+            <h3>🧠 Antes de publicar</h3>
+
+            <ul>
+                <li>Piensa quién podrá verlo.</li>
+                <li>Evita compartir información privada.</li>
+                <li>Revisa la configuración de privacidad.</li>
+                <li>No aceptes automáticamente a desconocidos.</li>
+                <li>Si algo te incomoda, pide ayuda.</li>
+            </ul>
+
+            <h3>👥 Personas desconocidas</h3>
+
+            <p>
+                Que una persona tenga una foto o un perfil que parezca
+                real no significa necesariamente que la conozcamos.
+            </p>
+
+        </div>
+
+        <div class="pregunta">
+
+            <div class="pregunta-titulo">
+                📱 Una cuenta desconocida te pide información personal.
+                ¿Qué haces?
+            </div>
+
+            <div class="opciones">
+
+                <button class="opcion" onclick="respuestaInfo(this, true)">
+                    🛡️ No comparto información y puedo bloquear o informar.
+                </button>
+
+                <button class="opcion" onclick="respuestaInfo(this, false)">
+                    📤 Le envío mis datos.
+                </button>
+
+                <button class="opcion" onclick="respuestaInfo(this, false)">
+                    📸 Le envío una foto personal.
+                </button>
+
+            </div>
+
+            <div class="resultado"></div>
+
+        </div>
+
+        <button class="boton-volver" onclick="volverMenu()">
+            ← VOLVER AL MENÚ
+        </button>
+
+    </section>
+
+    <section id="test" class="seccion">
+
+        <h1>🧠 TEST FINAL</h1>
+
+        <div class="test-caja">
+
+            <div class="test-progreso-texto" id="testProgreso">
+                Pregunta 1 de 5
+            </div>
+
+            <div class="barra-test">
+                <div id="barraTest"></div>
+            </div>
+
+            <div id="testContenido">
+
+                <div class="test-pregunta" id="testPregunta">
+                    Pregunta
+                </div>
+
+                <div id="respuestasTest"></div>
+
+            </div>
+
+        </div>
+
+        <button class="boton-volver" onclick="volverMenu()">
+            ← VOLVER AL MENÚ
+        </button>
+
+    </section>
+
+    <section id="tienda" class="seccion">
+
+        <h1>🛍️ CYBERSAFE STORE</h1>
+
+        <div class="tienda-saldo">
+            🪙 Tus monedas:
+            <span id="monedasTienda">0</span>
+        </div>
+
+        <div class="preview-skin">
+
+            <div class="preview-icono" id="previewIcono">
+                🟢
+            </div>
+
+            <h2 id="previewNombre">
+                SKIN MATRIX
+            </h2>
+
+            <p id="previewDescripcion">
+                Tu interfaz actual utiliza el estilo Matrix.
+            </p>
+
+        </div>
+
+        <div class="tienda">
+
+            <div class="skin-card">
+
+                <div class="skin-icono">🟢</div>
+
+                <h2>SKIN MATRIX</h2>
+
+                <p>
+                    Verde clásico CYBERSAFE.
+                </p>
+
+                <div class="skin-precio">
+                    🪙 500
+                </div>
+
+                <button
+                    id="skinBtn1"
+                    class="boton-skin"
+                    onclick="comprarSkin(1)"
+                >
+                    COMPRAR
+                </button>
+
+            </div>
+
+            <div class="skin-card">
+
+                <div class="skin-icono">🔵</div>
+
+                <h2>SKIN NEON</h2>
+
+                <p>
+                    Interfaz azul futurista.
+                </p>
+
+                <div class="skin-precio">
+                    🪙 1000
+                </div>
+
+                <button
+                    id="skinBtn2"
+                    class="boton-skin"
+                    onclick="comprarSkin(2)"
+                >
+                    COMPRAR
+                </button>
+
+            </div>
+
+            <div class="skin-card">
+
+                <div class="skin-icono">🟣</div>
+
+                <h2>SKIN CYBER</h2>
+
+                <p>
+                    Estilo morado cyberpunk.
+                </p>
+
+                <div class="skin-precio">
+                    🪙 2000
+                </div>
+
+                <button
+                    id="skinBtn3"
+                    class="boton-skin"
+                    onclick="comprarSkin(3)"
+                >
+                    COMPRAR
+                </button>
+
+            </div>
+
+            <div class="skin-card">
+
+                <div class="skin-icono">🛡️</div>
+
+                <h2>SKIN GUARDIAN</h2>
+
+                <p>
+                    Estilo dorado de guardián.
+                </p>
+
+                <div class="skin-precio">
+                    🪙 3000
+                </div>
+
+                <button
+                    id="skinBtn4"
+                    class="boton-skin"
+                    onclick="comprarSkin(4)"
+                >
+                    COMPRAR
+                </button>
+
+            </div>
+
+            <div class="skin-card">
+
+                <div class="skin-icono">👑</div>
+
+                <h2>SKIN LEGEND</h2>
+
+                <p>
+                    Estilo naranja de leyenda.
+                </p>
+
+                <div class="skin-precio">
+                    🪙 5000
+                </div>
+
+                <button
+                    id="skinBtn5"
+                    class="boton-skin"
+                    onclick="comprarSkin(5)"
+                >
+                    COMPRAR
+                </button>
+
+            </div>
+
+        </div>
+
+        <button class="boton-volver" onclick="volverMenu()">
+            ← VOLVER AL MENÚ
+        </button>
+
+    </section>
+
+    <section id="perfil" class="seccion">
+
+        <h1>👤 MI PERFIL</h1>
+
+        <div class="info-box perfil">
+
+            <div class="avatar" id="avatarPerfil">
+                🟢
+            </div>
+
+            <div class="titulo-perfil" id="tituloPerfil">
+                🟢 NOVATO DIGITAL
+            </div>
+
+            <p>
+                Tu progreso se guarda automáticamente en este navegador.
+            </p>
+
+            <div class="estadisticas">
+
+                <div class="stat">
+                    <strong id="perfilXP">0</strong>
+                    XP
+                </div>
+
+                <div class="stat">
+                    <strong id="perfilMonedas">0</strong>
+                    🪙 MONEDAS
+                </div>
+
+                <div class="stat">
+                    <strong id="perfilSkins">0</strong>
+                    SKINS
+                </div>
+
+                <div class="stat">
+                    <strong id="perfilSkin">🟢</strong>
+                    SKIN ACTUAL
+                </div>
+
+            </div>
+
+            <button class="boton-reset" onclick="reiniciarProgreso()">
+                🔄 REINICIAR PROGRESO
+            </button>
+
+        </div>
+
+        <button class="boton-volver" onclick="volverMenu()">
+            ← VOLVER AL MENÚ
+        </button>
+
+    </section>
+
+</main>
+
+<div id="alertaPhishing">
+
+    <div class="phishing-caja">
+
+        <div class="simulacion">
+            ⚠️ SIMULACIÓN DE PHISHING
+        </div>
+
+        <h2 id="tituloPhishing">
+            AVISO
+        </h2>
+
+        <p id="mensajePhishing">
+            Mensaje.
+        </p>
+
+        <div
+            id="botonesPhishing"
+            class="botones-phishing"
+        ></div>
+
+    </div>
+
+</div>
+
+<div id="errorPantalla">
+
+    <div class="error-caja">
+
+        <h2>⚠️ HAS CAÍDO EN LA SIMULACIÓN</h2>
+
+        <p>
+            Esta era una simulación educativa de phishing.
+        </p>
+
+        <p>
+            Has perdido <strong>50 XP</strong>.
+        </p>
+
+        <p>
+            Recuerda: ante un mensaje sospechoso,
+            detente y comprueba la información.
+        </p>
+
+        <button
+            class="boton-principal"
+            onclick="cerrarError()"
+        >
+            🛡️ ENTENDIDO
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+/* =========================
+   SISTEMA DE SONIDOS CYBERSAFE
+   ========================= */
+
+let audioCtx = null;
+let sonidoAmbienteIniciado = false;
+let ambienteIntervalo = null;
+
+function iniciarAudio() {
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
+    if (audioCtx.state === "suspended") {
+        audioCtx.resume();
+    }
+}
+
+function tono(frecuencia, duracion, tipo = "sine", volumen = 0.035, retraso = 0) {
+    iniciarAudio();
+
+    const ahora = audioCtx.currentTime + retraso;
+    const oscilador = audioCtx.createOscillator();
+    const ganancia = audioCtx.createGain();
+
+    oscilador.type = tipo;
+    oscilador.frequency.setValueAtTime(frecuencia, ahora);
+
+    ganancia.gain.setValueAtTime(0.0001, ahora);
+    ganancia.gain.exponentialRampToValueAtTime(volumen, ahora + 0.015);
+    ganancia.gain.exponentialRampToValueAtTime(0.0001, ahora + duracion);
+
+    oscilador.connect(ganancia);
+    ganancia.connect(audioCtx.destination);
+
+    oscilador.start(ahora);
+    oscilador.stop(ahora + duracion + 0.03);
+}
+
+function sonidoClick() {
+    tono(520, 0.07, "square", 0.018);
+}
+
+function sonidoNavegacion() {
+    tono(330, 0.08, "sine", 0.025);
+    tono(520, 0.10, "sine", 0.018, 0.07);
+}
+
+function sonidoVolver() {
+    tono(520, 0.08, "sine", 0.025);
+    tono(330, 0.12, "sine", 0.020, 0.07);
+}
+
+function sonidoCorrecto() {
+    tono(523, 0.10, "sine", 0.045);
+    tono(659, 0.12, "sine", 0.045, 0.09);
+    tono(784, 0.16, "sine", 0.040, 0.19);
+}
+
+function sonidoIncorrecto() {
+    tono(260, 0.14, "sawtooth", 0.035);
+    tono(190, 0.20, "sawtooth", 0.030, 0.11);
+}
+
+function sonidoComprar() {
+    tono(440, 0.08, "square", 0.025);
+    tono(660, 0.10, "square", 0.025, 0.08);
+    tono(880, 0.14, "square", 0.020, 0.17);
+}
+
+function sonidoAlerta() {
+    tono(180, 0.12, "square", 0.035);
+    tono(120, 0.16, "square", 0.030, 0.13);
+}
+
+function crearAmbienteContinuo() {
+    iniciarAudio();
+
+    if (window.ambienteContinuoCreado) return;
+    window.ambienteContinuoCreado = true;
+
+    const master = audioCtx.createGain();
+
+    /* VOLUMEN DEL SONIDO DE FONDO */
+    master.gain.value = 0.055;
+
+    master.connect(audioCtx.destination);
+
+    const oscilador1 = audioCtx.createOscillator();
+    const oscilador2 = audioCtx.createOscillator();
+    const filtro = audioCtx.createBiquadFilter();
+
+    oscilador1.type = "sawtooth";
+    oscilador2.type = "triangle";
+
+    oscilador1.frequency.value = 55;
+    oscilador2.frequency.value = 82.5;
+
+    filtro.type = "lowpass";
+    filtro.frequency.value = 520;
+    filtro.Q.value = 2;
+
+    const ganancia1 = audioCtx.createGain();
+    const ganancia2 = audioCtx.createGain();
+
+    ganancia1.gain.value = 0.20;
+    ganancia2.gain.value = 0.12;
+
+    oscilador1.connect(ganancia1);
+    oscilador2.connect(ganancia2);
+    ganancia1.connect(filtro);
+    ganancia2.connect(filtro);
+    filtro.connect(master);
+
+    oscilador1.start();
+    oscilador2.start();
+
+    /* Pequeños cambios de frecuencia para dar sensación tecnológica */
+
+    const modular = audioCtx.createOscillator();
+    const modularGain = audioCtx.createGain();
+
+    modular.type = "sine";
+    modular.frequency.value = 0.08;
+    modularGain.gain.value = 18;
+
+    modular.connect(modularGain);
+    modularGain.connect(oscilador1.frequency);
+    modular.start();
+
+    /* Latido electrónico muy suave */
+
+    window.ambienteLatido = setInterval(() => {
+
+        if (!audioCtx || document.hidden) return;
+
+        const ahora = audioCtx.currentTime;
+
+        const pulso = audioCtx.createOscillator();
+        const volumen = audioCtx.createGain();
+
+        pulso.type = "sine";
+        pulso.frequency.value = 110;
+
+        volumen.gain.setValueAtTime(
+            0.0001,
+            ahora
+        );
+
+        volumen.gain.exponentialRampToValueAtTime(
+            0.012,
+            ahora + 0.04
+        );
+
+        volumen.gain.exponentialRampToValueAtTime(
+            0.0001,
+            ahora + 0.45
+        );
+
+        pulso.connect(volumen);
+        volumen.connect(master);
+
+        pulso.start(ahora);
+        pulso.stop(ahora + 0.5);
+
+    }, 4200);
+}
+
+/* FUNCIÓN CORREGIDA DEL SONIDO DE FONDO */
+
+function iniciarSonidoAmbiente() {
+
+    iniciarAudio();
+
+    if (sonidoAmbienteIniciado) return;
+
+    sonidoAmbienteIniciado = true;
+
+    crearAmbienteContinuo();
+}
+
+
+/* Cualquier botón de CYBERSAFE produce un pequeño sonido */
+
+document.addEventListener("click", function(evento) {
+
+    iniciarSonidoAmbiente();
+
+    const boton = evento.target.closest("button");
+
+    if (!boton) return;
+
+    if (
+        boton.classList.contains("boton-volver") ||
+        boton.classList.contains("boton-reset")
+    ) {
+        sonidoVolver();
+        return;
+    }
+
+    if (
+        boton.classList.contains("boton-skin")
+    ) {
+        sonidoComprar();
+        return;
+    }
+
+    if (
+        boton.classList.contains("boton-principal")
+    ) {
+        sonidoNavegacion();
+        return;
+    }
+
+    if (
+        boton.classList.contains("opcion-phishing")
+    ) {
+        sonidoClick();
+        return;
+    }
+
+    if (
+        boton.classList.contains("opcion") ||
+        boton.classList.contains("respuesta-test")
+    ) {
+        return;
+    }
+
+    sonidoClick();
+});
+
+
+/* También activa el ambiente al usar el teclado */
+
+document.addEventListener("keydown", function() {
+    iniciarSonidoAmbiente();
+});
+
+
+/* SONIDOS DE RESPUESTA */
+
+let audioContext = null;
+
+function obtenerAudioContext() {
+
+    if (!audioContext) {
+
+        const AudioCtx =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+        if (!AudioCtx) return null;
+
+        audioContext = new AudioCtx();
+    }
+
+    if (audioContext.state === "suspended") {
+        audioContext.resume();
+    }
+
+    return audioContext;
+}
+
+function reproducirSonidoCorrecto() {
+
+    const ctx = obtenerAudioContext();
+
+    if (!ctx) return;
+
+    const ahora = ctx.currentTime;
+
+    const notas = [
+        {
+            frecuencia: 523.25,
+            inicio: 0,
+            duracion: 0.12
+        },
+        {
+            frecuencia: 659.25,
+            inicio: 0.10,
+            duracion: 0.18
+        }
+    ];
+
+    notas.forEach(nota => {
+
+        const oscilador =
+            ctx.createOscillator();
+
+        const ganancia =
+            ctx.createGain();
+
+        oscilador.type = "sine";
+
+        oscilador.frequency.setValueAtTime(
+            nota.frecuencia,
+            ahora + nota.inicio
+        );
+
+        ganancia.gain.setValueAtTime(
+            0.0001,
+            ahora + nota.inicio
+        );
+
+        ganancia.gain.exponentialRampToValueAtTime(
+            0.18,
+            ahora + nota.inicio + 0.02
+        );
+
+        ganancia.gain.exponentialRampToValueAtTime(
+            0.0001,
+            ahora + nota.inicio + nota.duracion
+        );
+
+        oscilador.connect(ganancia);
+        ganancia.connect(ctx.destination);
+
+        oscilador.start(
+            ahora + nota.inicio
+        );
+
+        oscilador.stop(
+            ahora + nota.inicio + nota.duracion
+        );
+
+    });
+}
+
+function reproducirSonidoIncorrecto() {
+
+    const ctx = obtenerAudioContext();
+
+    if (!ctx) return;
+
+    const ahora = ctx.currentTime;
+
+    const oscilador =
+        ctx.createOscillator();
+
+    const ganancia =
+        ctx.createGain();
+
+    oscilador.type = "sawtooth";
+
+    oscilador.frequency.setValueAtTime(
+        220,
+        ahora
+    );
+
+    oscilador.frequency.exponentialRampToValueAtTime(
+        120,
+        ahora + 0.25
+    );
+
+    ganancia.gain.setValueAtTime(
+        0.0001,
+        ahora
+    );
+
+    ganancia.gain.exponentialRampToValueAtTime(
+        0.14,
+        ahora + 0.02
+    );
+
+    ganancia.gain.exponentialRampToValueAtTime(
+        0.0001,
+        ahora + 0.28
+    );
+
+    oscilador.connect(ganancia);
+    ganancia.connect(ctx.destination);
+
+    oscilador.start(ahora);
+    oscilador.stop(ahora + 0.28);
+}
+
+
+/* VARIABLES */
+
+let xp =
+    Number(localStorage.getItem("cybersafeXP")) || 0;
+
+let monedas =
+    Number(localStorage.getItem("cybersafeMonedas")) || 0;
+
+let skinsCompradas =
+    JSON.parse(
+        localStorage.getItem("cybersafeSkins")
+    ) || [];
+
+let skinEquipada =
+    Number(
+        localStorage.getItem("cybersafeSkinEquipada")
+    ) || 1;
+
+
+/* SKINS */
+
+const skins = {
+
+    1: {
+        nombre: "SKIN MATRIX",
+        precio: 500,
+        icono: "🟢",
+        clase: "skin-matrix",
+        descripcion: "Verde clásico CYBERSAFE."
+    },
+
+    2: {
+        nombre: "SKIN NEON",
+        precio: 1000,
+        icono: "🔵",
+        clase: "skin-neon",
+        descripcion: "Una interfaz azul futurista."
+    },
+
+    3: {
+        nombre: "SKIN CYBER",
+        precio: 2000,
+        icono: "🟣",
+        clase: "skin-cyber",
+        descripcion: "Una interfaz morada con estilo cyber."
+    },
+
+    4: {
+        nombre: "SKIN GUARDIAN",
+        precio: 3000,
+        icono: "🛡️",
+        clase: "skin-guardian",
+        descripcion: "Una interfaz dorada de guardián."
+    },
+
+    5: {
+        nombre: "SKIN LEGEND",
+        precio: 5000,
+        icono: "👑",
+        clase: "skin-legend",
+        descripcion: "La interfaz especial de una leyenda."
+    }
+
+};
+
+
+/* GUARDAR */
+
+function guardarProgreso() {
+
+    localStorage.setItem(
+        "cybersafeXP",
+        xp
+    );
+
+    localStorage.setItem(
+        "cybersafeMonedas",
+        monedas
+    );
+
+    localStorage.setItem(
+        "cybersafeSkins",
+        JSON.stringify(skinsCompradas)
+    );
+
+    localStorage.setItem(
+        "cybersafeSkinEquipada",
+        skinEquipada
+    );
+}
+
+
+/* XP */
+
+function sumarXP(cantidad) {
+
+    xp += cantidad;
+
+    guardarProgreso();
+    actualizarInterfaz();
+}
+
+function quitarXP(cantidad) {
+
+    xp = Math.max(
+        0,
+        xp - cantidad
+    );
+
+    guardarProgreso();
+    actualizarInterfaz();
+}
+
+
+/* MONEDAS */
+
+function sumarMonedas(cantidad) {
+
+    monedas += cantidad;
+
+    guardarProgreso();
+    actualizarInterfaz();
+}
+
+
+/* TÍTULOS */
+
+function obtenerTitulo() {
+
+    if (xp >= 10000)
+        return "👑 MAESTRO CYBERSAFE";
+
+    if (xp >= 9000)
+        return "🔥 LEYENDA DIGITAL";
+
+    if (xp >= 8000)
+        return "💻 EXPERTO CYBER";
+
+    if (xp >= 7000)
+        return "🛡️ GUARDIÁN ÉLITE";
+
+    if (xp >= 6000)
+        return "🔐 ESPECIALISTA DIGITAL";
+
+    if (xp >= 5000)
+        return "🧠 ANALISTA CYBER";
+
+    if (xp >= 4000)
+        return "⚡ DEFENSOR DIGITAL";
+
+    if (xp >= 3000)
+        return "🛡️ GUARDIÁN DIGITAL";
+
+    if (xp >= 2000)
+        return "🟣 ANALISTA DIGITAL";
+
+    if (xp >= 1000)
+        return "🔵 USUARIO SEGURO";
+
+    return "🟢 NOVATO DIGITAL";
+}
+
+
+/* APLICAR SKIN */
+
+function aplicarSkin() {
+
+    document.body.classList.remove(
+        "skin-matrix",
+        "skin-neon",
+        "skin-cyber",
+        "skin-guardian",
+        "skin-legend"
+    );
+
+    const skin =
+        skins[skinEquipada] || skins[1];
+
+    document.body.classList.add(
+        skin.clase
+    );
+
+    const avatar =
+        document.getElementById(
+            "avatarPerfil"
+        );
+
+    if (avatar) {
+        avatar.textContent =
+            skin.icono;
+    }
+
+    const perfilSkin =
+        document.getElementById(
+            "perfilSkin"
+        );
+
+    if (perfilSkin) {
+
+        perfilSkin.textContent =
+            skin.icono +
+            " " +
+            skin.nombre;
+
+    }
+
+    const previewIcono =
+        document.getElementById(
+            "previewIcono"
+        );
+
+    const previewNombre =
+        document.getElementById(
+            "previewNombre"
+        );
+
+    const previewDescripcion =
+        document.getElementById(
+            "previewDescripcion"
+        );
+
+    if (previewIcono) {
+        previewIcono.textContent =
+            skin.icono;
+    }
+
+    if (previewNombre) {
+        previewNombre.textContent =
+            skin.nombre;
+    }
+
+    if (previewDescripcion) {
+        previewDescripcion.textContent =
+            skin.descripcion;
+    }
+}
+
+
+/* INTERFAZ */
+
+function actualizarInterfaz() {
+
+    document.getElementById(
+        "xpTexto"
+    ).textContent =
+        xp;
+
+    document.getElementById(
+        "monedasTexto"
+    ).textContent =
+        monedas;
+
+    document.getElementById(
+        "monedasTienda"
+    ).textContent =
+        monedas;
+
+    document.getElementById(
+        "perfilXP"
+    ).textContent =
+        xp;
+
+    document.getElementById(
+        "perfilMonedas"
+    ).textContent =
+        monedas;
+
+    document.getElementById(
+        "perfilSkins"
+    ).textContent =
+        skinsCompradas.length;
+
+    document.getElementById(
+        "tituloPerfil"
+    ).textContent =
+        obtenerTitulo();
+
+    aplicarSkin();
+    actualizarTienda();
+}
+
+
+/* INICIO */
+
+function empezar() {
+
+    document.getElementById(
+        "inicio"
+    ).style.display =
+        "none";
+
+    document.getElementById(
+        "contenido"
+    ).style.display =
+        "block";
+
+    iniciarAtaques();
+}
+
+
+/* ABRIR SECCIÓN */
+
+function abrirSeccion(id) {
+
+    document.getElementById(
+        "menuPrincipal"
+    ).style.display =
+        "none";
+
+    document.querySelectorAll(
+        ".seccion"
+    ).forEach(
+        seccion => {
+            seccion.classList.remove(
+                "activa"
+            );
+        }
+    );
+
+    document.getElementById(id)
+        .classList.add("activa");
+
+    window.scrollTo(0, 0);
+}
+
+
+/* VOLVER */
+
+function volverMenu() {
+
+    document.querySelectorAll(
+        ".seccion"
+    ).forEach(
+        seccion => {
+            seccion.classList.remove(
+                "activa"
+            );
+        }
+    );
+
+    document.getElementById(
+        "menuPrincipal"
+    ).style.display =
+        "grid";
+
+    window.scrollTo(0, 0);
+}
+
+
+/* RESPUESTAS */
+
+function respuestaInfo(
+    boton,
+    correcto
+) {
+
+    const pregunta =
+        boton.closest(".pregunta");
+
+    const resultado =
+        pregunta.querySelector(
+            ".resultado"
+        );
+
+    const botones =
+        pregunta.querySelectorAll(
+            ".opcion"
+        );
+
+    botones.forEach(
+        b => b.disabled = true
+    );
+
+    if (correcto) {
+
+        reproducirSonidoCorrecto();
+
+        boton.style.borderColor =
+            "var(--principal)";
+
+        boton.style.background =
+            "var(--principal-suave)";
+
+        resultado.className =
+            "resultado correcto";
+
+        resultado.innerHTML =
+            "✅ ¡Correcto! Has conseguido <strong>100 XP y 100 🪙</strong>.";
+
+        sumarXP(100);
+        sumarMonedas(100);
+
+    } else {
+
+        reproducirSonidoIncorrecto();
+
+        boton.style.borderColor =
+            "#ff5555";
+
+        boton.style.background =
+            "#301010";
+
+        resultado.className =
+            "resultado incorrecto";
+
+        resultado.innerHTML =
+            "❌ No es la mejor opción. Piensa en cómo proteger tus datos.";
+    }
+}
+
+
+/* MISIONES */
+
+function mision(
+    boton,
+    correcto
+) {
+
+    const pregunta =
+        boton.closest(".pregunta");
+
+    const resultado =
+        pregunta.querySelector(
+            ".resultado"
+        );
+
+    if (correcto) {
+
+        reproducirSonidoCorrecto();
+
+        resultado.className =
+            "resultado correcto";
+
+        resultado.innerHTML =
+            "🛡️ ¡Buena decisión! Has conseguido <strong>100 XP y 100 🪙</strong>.";
+
+        sumarXP(100);
+        sumarMonedas(100);
+
+    } else {
+
+        reproducirSonidoIncorrecto();
+
+        resultado.className =
+            "resultado incorrecto";
+
+        resultado.innerHTML =
+            "❌ Esa opción puede poner en riesgo tu privacidad.";
+    }
+}
+
+
+/* PROBADOR DE CONTRASEÑAS */
+
+function comprobarPassword() {
+
+    const password =
+        document.getElementById(
+            "passwordInput"
+        ).value;
+
+    let puntos = 0;
+
+    if (password.length >= 8)
+        puntos++;
+
+    if (password.length >= 12)
+        puntos++;
+
+    if (/[A-Z]/.test(password))
+        puntos++;
+
+    if (/[a-z]/.test(password))
+        puntos++;
+
+    if (/[0-9]/.test(password))
+        puntos++;
+
+    if (/[^A-Za-z0-9]/.test(password))
+        puntos++;
+
+    const porcentaje =
+        Math.min(
+            100,
+            puntos * 16.66
+        );
+
+    document.getElementById(
+        "barraPassword"
+    ).style.width =
+        porcentaje + "%";
+
+
+    let nivel = "";
+    let detalle = "";
+
+    if (password.length === 0) {
+
+        nivel =
+            "🔴 MUY DÉBIL";
+
+        detalle =
+            "Escribe una contraseña de prueba.";
+
+    } else if (puntos <= 2) {
+
+        nivel =
+            "🔴 MUY DÉBIL";
+
+        detalle =
+            "Necesita más longitud y variedad.";
+
+    } else if (puntos <= 4) {
+
+        nivel =
+            "🟠 MEDIA";
+
+        detalle =
+            "Está mejor, pero todavía puede mejorar.";
+
+    } else {
+
+        nivel =
+            "🟢 FUERTE";
+
+        detalle =
+            "Buena combinación de longitud y variedad.";
+    }
+
+    document.getElementById(
+        "nivelPassword"
+    ).textContent =
+        nivel;
+
+    document.getElementById(
+        "detallesPassword"
+    ).textContent =
+        detalle;
+}
+
+
+/* TEST */
+
+const preguntasTest = [
+
+    {
+        pregunta:
+            "¿Qué característica ayuda a que una contraseña sea más segura?",
+
+        respuestas: [
+            "Que sea muy corta",
+            "Que sea larga y difícil de adivinar",
+            "Que sea tu nombre",
+            "Que sea 123456"
+        ],
+
+        correcta: 1
+    },
+
+    {
+        pregunta:
+            "¿Qué es el phishing?",
+
+        respuestas: [
+            "Un videojuego",
+            "Una técnica de engaño para intentar conseguir información",
+            "Un antivirus",
+            "Una red social"
+        ],
+
+        correcta: 1
+    },
+
+    {
+        pregunta:
+            "¿Qué deberías hacer ante un mensaje sospechoso?",
+
+        respuestas: [
+            "Hacer clic inmediatamente",
+            "Reenviarlo",
+            "Comprobar la información por una vía segura",
+            "Dar tus datos"
+        ],
+
+        correcta: 2
+    },
+
+    {
+        pregunta:
+            "¿Cuál de estos datos es especialmente privado?",
+
+        respuestas: [
+            "Tu color favorito",
+            "Tu videojuego favorito",
+            "Tu dirección de casa",
+            "Tu deporte favorito"
+        ],
+
+        correcta: 2
+    },
+
+    {
+        pregunta:
+            "¿Qué es recomendable hacer en redes sociales?",
+
+        respuestas: [
+            "Aceptar a todo el mundo",
+            "Compartir toda tu información",
+            "Revisar la privacidad de tu cuenta",
+            "Publicar tu dirección"
+        ],
+
+        correcta: 2
+    },
+
+    {
+        pregunta:
+            "¿Qué debes hacer si una persona desconocida pide información personal?",
+
+        respuestas: [
+            "Compartirla",
+            "No compartirla",
+            "Enviar una foto",
+            "Dar tu contraseña"
+        ],
+
+        correcta: 1
+    },
+
+    {
+        pregunta:
+            "¿Por qué no es recomendable utilizar la misma contraseña para todo?",
+
+        respuestas: [
+            "Porque es demasiado fácil de recordar",
+            "Porque si una cuenta se ve comprometida, otras podrían quedar expuestas",
+            "Porque ocupa más espacio",
+            "Porque Internet no lo permite"
+        ],
+
+        correcta: 1
+    },
+
+    {
+        pregunta:
+            "¿Qué puede ser una señal de phishing?",
+
+        respuestas: [
+            "Un mensaje normal de un amigo",
+            "Un aviso que crea mucha urgencia y pide actuar rápidamente",
+            "Una foto de vacaciones",
+            "Una canción"
+        ],
+
+        correcta: 1
+    },
+
+    {
+        pregunta:
+            "¿Qué deberías pensar antes de publicar algo?",
+
+        respuestas: [
+            "Quién puede verlo",
+            "Nada",
+            "Si tiene muchos emojis",
+            "Si es muy largo"
+        ],
+
+        correcta: 0
+    },
+
+    {
+        pregunta:
+            "¿Qué es importante proteger?",
+
+        respuestas: [
+            "Las contraseñas",
+            "El color de una camiseta",
+            "Tu videojuego favorito",
+            "Tu equipo deportivo"
+        ],
+
+        correcta: 0
+    },
+
+    {
+        pregunta:
+            "¿Qué puedes hacer si algo en Internet te hace sentir incómodo?",
+
+        respuestas: [
+            "Ignorarlo siempre",
+            "Compartirlo públicamente",
+            "Pedir ayuda a una persona de confianza",
+            "Dar más información"
+        ],
+
+        correcta: 2
+    },
+
+    {
+        pregunta:
+            "¿Qué es una buena práctica de privacidad?",
+
+        respuestas: [
+            "Compartir tu dirección",
+            "Revisar quién puede ver tu información",
+            "Aceptar cualquier solicitud",
+            "Publicar contraseñas"
+        ],
+
+        correcta: 1
+    }
+
+];
+
+
+let preguntasSeleccionadas = [];
+let preguntaActual = 0;
+let testPuntos = 0;
+
+
+/* ABRIR TEST */
+
+function abrirTest() {
+
+    document.getElementById(
+        "menuPrincipal"
+    ).style.display =
+        "none";
+
+    document.querySelectorAll(
+        ".seccion"
+    ).forEach(
+        s => s.classList.remove(
+            "activa"
+        )
+    );
+
+    document.getElementById(
+        "test"
+    ).classList.add(
+        "activa"
+    );
+
+    comenzarTest();
+
+    window.scrollTo(0, 0);
+}
+
+
+/* COMENZAR / REPETIR TEST */
+
+function comenzarTest() {
+
+    document.getElementById(
+        "testContenido"
+    ).innerHTML = `
+
+        <div class="test-pregunta" id="testPregunta">
+            Pregunta
+        </div>
+
+        <div id="respuestasTest"></div>
+
+    `;
+
+    preguntasSeleccionadas =
+        [...preguntasTest]
+            .sort(
+                () =>
+                    Math.random() - 0.5
+            )
+            .slice(0, 5);
+
+    preguntaActual = 0;
+    testPuntos = 0;
+
+    document.getElementById(
+        "barraTest"
+    ).style.width =
+        "0%";
+
+    document.getElementById(
+        "testProgreso"
+    ).textContent =
+        "Pregunta 1 de 5";
+
+    mostrarPreguntaTest();
+}
+
+
+/* MOSTRAR PREGUNTA */
+
+function mostrarPreguntaTest() {
+
+    const pregunta =
+        preguntasSeleccionadas[
+            preguntaActual
+        ];
+
+    document.getElementById(
+        "testProgreso"
+    ).textContent =
+        "Pregunta " +
+        (preguntaActual + 1) +
+        " de 5";
+
+    document.getElementById(
+        "barraTest"
+    ).style.width =
+        (preguntaActual / 5 * 100) +
+        "%";
+
+    document.getElementById(
+        "testPregunta"
+    ).textContent =
+        pregunta.pregunta;
+
+    const contenedor =
+        document.getElementById(
+            "respuestasTest"
+        );
+
+    contenedor.innerHTML = "";
+
+    pregunta.respuestas.forEach(
+        (respuesta, indice) => {
+
+            const boton =
+                document.createElement(
+                    "button"
+                );
+
+            boton.className =
+                "respuesta-test";
+
+            boton.textContent =
+                respuesta;
+
+            boton.onclick =
+                () =>
+                    responderTest(
+                        boton,
+                        indice
+                    );
+
+            contenedor.appendChild(
+                boton
+            );
+        }
+    );
+}
+
+
+/* RESPONDER TEST */
+
+function responderTest(
+    boton,
+    indice
+) {
+
+    const pregunta =
+        preguntasSeleccionadas[
+            preguntaActual
+        ];
+
+    const botones =
+        document.querySelectorAll(
+            ".respuesta-test"
+        );
+
+    botones.forEach(
+        b => b.disabled = true
+    );
+
+    if (
+        indice ===
+        pregunta.correcta
+    ) {
+
+        reproducirSonidoCorrecto();
+
+        boton.classList.add(
+            "respuesta-correcta"
+        );
+
+        testPuntos++;
+
+        sumarXP(100);
+        sumarMonedas(100);
+
+    } else {
+
+        reproducirSonidoIncorrecto();
+
+        boton.classList.add(
+            "respuesta-incorrecta"
+        );
+
+        botones[
+            pregunta.correcta
+        ].classList.add(
+            "respuesta-correcta"
+        );
+    }
+
+    setTimeout(
+        () => {
+
+            preguntaActual++;
+
+            if (
+                preguntaActual >= 5
+            ) {
+
+                terminarTest();
+
+            } else {
+
+                mostrarPreguntaTest();
+            }
+
+        },
+        1000
+    );
+}
+
+
+/* TERMINAR TEST */
+
+function terminarTest() {
+
+    document.getElementById(
+        "barraTest"
+    ).style.width =
+        "100%";
+
+    document.getElementById(
+        "testProgreso"
+    ).textContent =
+        "TEST COMPLETADO";
+
+    document.getElementById(
+        "testContenido"
+    ).innerHTML = `
+
+        <div style="text-align:center">
+
+            <div style="font-size:60px">
+                🏆
+            </div>
+
+            <h2 style="color:var(--principal)">
+                ¡TEST TERMINADO!
+            </h2>
+
+            <p style="font-size:22px">
+                Has acertado
+                <strong>${testPuntos}/5</strong>
+            </p>
+
+            <p>
+                Las respuestas correctas te han dado
+                XP y monedas.
+            </p>
+
+            <button
+                class="boton-principal"
+                onclick="comenzarTest()"
+            >
+                🔄 REPETIR TEST
+            </button>
+
+        </div>
+    `;
+}
+
+
+/* TIENDA */
+
+function comprarSkin(id) {
+
+    const skin =
+        skins[id];
+
+    if (
+        skinsCompradas.includes(id)
+    ) {
+
+        skinEquipada = id;
+
+        guardarProgreso();
+        actualizarInterfaz();
+
+        alert(
+            skin.icono +
+            " " +
+            skin.nombre +
+            " equipada."
+        );
+
+        return;
+    }
+
+    if (
+        monedas < skin.precio
+    ) {
+
+        alert(
+            "❌ No tienes suficientes monedas."
+        );
+
+        return;
+    }
+
+    monedas -= skin.precio;
+
+    skinsCompradas.push(id);
+
+    skinEquipada = id;
+
+    guardarProgreso();
+    actualizarInterfaz();
+
+    alert(
+        "🎉 Has comprado y equipado " +
+        skin.nombre +
+        "!"
+    );
+}
+
+
+function actualizarTienda() {
+
+    document.getElementById(
+        "monedasTienda"
+    ).textContent =
+        monedas;
+
+    for (
+        let id = 1;
+        id <= 5;
+        id++
+    ) {
+
+        const boton =
+            document.getElementById(
+                "skinBtn" + id
+            );
+
+        const skin =
+            skins[id];
+
+        if (
+            skinEquipada === id
+        ) {
+
+            boton.textContent =
+                "✓ EQUIPADA";
+
+            boton.disabled =
+                false;
+
+        } else if (
+            skinsCompradas.includes(id)
+        ) {
+
+            boton.textContent =
+                "EQUIPAR";
+
+            boton.disabled =
+                false;
+
+        } else {
+
+            boton.textContent =
+                "🪙 " +
+                skin.precio;
+
+            boton.disabled =
+                monedas <
+                skin.precio;
+        }
+    }
+}
+
+
+/* REINICIAR */
+
+function reiniciarProgreso() {
+
+    const confirmar =
+        confirm(
+            "¿Seguro que quieres borrar todo tu progreso?"
+        );
+
+    if (!confirmar) {
+        return;
+    }
+
+    xp = 0;
+    monedas = 0;
+    skinsCompradas = [];
+    skinEquipada = 1;
+
+    localStorage.removeItem(
+        "cybersafeXP"
+    );
+
+    localStorage.removeItem(
+        "cybersafeMonedas"
+    );
+
+    localStorage.removeItem(
+        "cybersafeSkins"
+    );
+
+    localStorage.removeItem(
+        "cybersafeSkinEquipada"
+    );
+
+    guardarProgreso();
+    actualizarInterfaz();
+
+    alert(
+        "🔄 Progreso reiniciado."
+    );
+}
+
+
+/* PHISHING */
+
+let ataqueActivo = false;
+let ataquesMostrados = 0;
+const maxAtaques = 3;
+let mensajesUsados = [];
+
+
+const mensajesPhishing = [
+
+    {
+        titulo:
+            "🎁 ¡HAS GANADO UN PREMIO!",
+
+        mensaje:
+            "ENHORABUENA\n\n" +
+            "Has sido seleccionado para recibir un premio.\n\n" +
+            "Tu recompensa está reservada durante unos minutos.\n\n" +
+            "Accede ahora para comprobar los detalles.",
+
+        botones: [
+            "🎁 VER MI PREMIO",
+            "📄 VER DETALLES"
+        ]
+    },
+
+    {
+        titulo:
+            "⚠️ ACTIVIDAD EN TU CUENTA",
+
+        mensaje:
+            "AVISO DE SEGURIDAD\n\n" +
+            "Se ha detectado una actividad que requiere tu atención.\n\n" +
+            "Revisa los detalles para comprobar que todo está correcto.",
+
+        botones: [
+            "🔎 REVISAR ACTIVIDAD",
+            "🔐 CONFIRMAR CUENTA"
+        ]
+    },
+
+    {
+        titulo:
+            "📦 PROBLEMA CON TU PEDIDO",
+
+        mensaje:
+            "SERVICIO DE ENTREGAS\n\n" +
+            "No hemos podido completar la entrega de tu pedido.\n\n" +
+            "Consulta el estado del envío para conocer qué ha ocurrido.",
+
+        botones: [
+            "📦 VER PEDIDO",
+            "🚚 CONSULTAR ENTREGA"
+        ]
+    }
+
+];
+
+
+function iniciarAtaques() {
+
+    if (ataqueActivo)
+        return;
+
+    ataqueActivo = true;
+    ataquesMostrados = 0;
+    mensajesUsados = [];
+
+    programarAtaque();
+}
+
+
+function programarAtaque() {
+
+    if (
+        ataquesMostrados >=
+        maxAtaques
+    )
+        return;
+
+    const tiempo =
+        Math.floor(
+            Math.random() * 30000
+        ) + 30000;
+
+    setTimeout(
+        () => {
+
+            const menu =
+                document.getElementById(
+                    "contenido"
+                );
+
+            const alerta =
+                document.getElementById(
+                    "alertaPhishing"
+                );
+
+            if (
+                menu.style.display === "block" &&
+                alerta.style.display !== "flex"
+            ) {
+
+                mostrarPhishing();
+
+            } else {
+
+                esperarMenu();
+            }
+
+        },
+        tiempo
+    );
+}
+
+
+function esperarMenu() {
+
+    const intervalo =
+        setInterval(
+            () => {
+
+                const menu =
+                    document.getElementById(
+                        "contenido"
+                    );
+
+                const alerta =
+                    document.getElementById(
+                        "alertaPhishing"
+                    );
+
+                if (
+                    ataquesMostrados >=
+                    maxAtaques
+                ) {
+
+                    clearInterval(
+                        intervalo
+                    );
+
+                    return;
+                }
+
+                if (
+                    menu.style.display === "block" &&
+                    alerta.style.display !== "flex"
+                ) {
+
+                    clearInterval(
+                        intervalo
+                    );
+
+                    mostrarPhishing();
+                }
+
+            },
+            3000
+        );
+}
+
+
+function mostrarPhishing() {
+
+    sonidoAlerta();
+
+    if (
+        ataquesMostrados >=
+        maxAtaques
+    )
+        return;
+
+    let disponibles =
+        mensajesPhishing
+            .map(
+                (mensaje, indice) =>
+                    indice
+            )
+            .filter(
+                indice =>
+                    !mensajesUsados.includes(
+                        indice
+                    )
+            );
+
+    if (
+        disponibles.length === 0
+    )
+        return;
+
+    const indice =
+        disponibles[
+            Math.floor(
+                Math.random() *
+                disponibles.length
+            )
+        ];
+
+    mensajesUsados.push(
+        indice
+    );
+
+    const mensaje =
+        mensajesPhishing[indice];
+
+    document.getElementById(
+        "tituloPhishing"
+    ).textContent =
+        mensaje.titulo;
+
+    document.getElementById(
+        "mensajePhishing"
+    ).textContent =
+        mensaje.mensaje;
+
+    const botones =
+        document.getElementById(
+            "botonesPhishing"
+        );
+
+    botones.innerHTML = "";
+
+
+    mensaje.botones.forEach(
+        texto => {
+
+            const boton =
+                document.createElement(
+                    "button"
+                );
+
+            boton.textContent =
+                texto;
+
+            boton.className =
+                "opcion-phishing";
+
+            boton.onclick =
+                caerPhishing;
+
+            botones.appendChild(
+                boton
+            );
+        }
+    );
+
+
+    const botonSeguro =
+        document.createElement(
+            "button"
+        );
+
+    const opcionesSeguras = [
+
+        "🛡️ IGNORAR MENSAJE",
+
+        "❌ CERRAR AVISO",
+
+        "🔙 VOLVER ATRÁS",
+
+        "🔍 COMPROBAR POR OTRA VÍA"
+
+    ];
+
+    botonSeguro.textContent =
+        opcionesSeguras[
+            Math.floor(
+                Math.random() *
+                opcionesSeguras.length
+            )
+        ];
+
+    botonSeguro.className =
+        "opcion-phishing";
+
+    botonSeguro.onclick =
+        detectarPhishing;
+
+    botones.appendChild(
+        botonSeguro
+    );
+
+
+    document.getElementById(
+        "alertaPhishing"
+    ).style.display =
+        "flex";
+
+    ataquesMostrados++;
+
+    if (
+        ataquesMostrados <
+        maxAtaques
+    ) {
+
+        programarAtaque();
+    }
+}
+
+
+function detectarPhishing() {
+
+    document.getElementById(
+        "alertaPhishing"
+    ).style.display =
+        "none";
+
+    alert(
+        "🛡️ MENSAJE SOSPECHOSO DETECTADO\n\n" +
+        "Has evitado la trampa.\n\n" +
+        "No ganas XP."
+    );
+}
+
+
+function caerPhishing() {
+
+    sonidoIncorrecto();
+
+    document.getElementById(
+        "alertaPhishing"
+    ).style.display =
+        "none";
+
+    quitarXP(50);
+
+    document.getElementById(
+        "errorPantalla"
+    ).style.display =
+        "flex";
+}
+
+
+function cerrarError() {
+
+    sonidoVolver();
+
+    document.getElementById(
+        "errorPantalla"
+    ).style.display =
+        "none";
+}
+
+
+/* MENSAJES DE INICIO */
+
+const mensajesInicio = [
+
+    "Inicializando CYBERSAFE...",
+
+    "Comprobando sistema de seguridad...",
+
+    "Cargando módulos...",
+
+    "Analizando amenazas...",
+
+    "Protección preparada ✓"
+
+];
+
+let mensajeInicioActual = 0;
+
+
+function cambiarMensajeInicio() {
+
+    if (
+        mensajeInicioActual <
+        mensajesInicio.length
+    ) {
+
+        document.getElementById(
+            "mensajeSistema"
+        ).textContent =
+            mensajesInicio[
+                mensajeInicioActual
+            ];
+
+        mensajeInicioActual++;
+
+        setTimeout(
+            cambiarMensajeInicio,
+            900
+        );
+    }
+}
+
+
+setTimeout(
+    cambiarMensajeInicio,
+    700
+);
+
+
+/* CARGA */
+
+actualizarInterfaz();
+
+</script>
+
+</body>
+</html>
